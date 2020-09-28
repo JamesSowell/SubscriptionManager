@@ -1,0 +1,30 @@
+{
+  "name": "subscriptionmanager",
+  "version": "1.0.0",
+  "description": "Subscription Manager App made with Nodejs and postgres",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesSowell/SubscriptionManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesSowell/SubscriptionManager/issues"
+  },
+  "homepage": "https://github.com/JamesSowell/SubscriptionManager#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.21.5",
+    "pg": "^8.3.3"
+  }
+}

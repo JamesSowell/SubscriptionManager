@@ -4,7 +4,7 @@ const knex = require('knex');
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
-const dao = require('./controllers/dao');
+const subsController = require('./controllers/subsController');
 const signin = require('./controllers/signin');
 const register = require('./controllers/register');
 
@@ -17,32 +17,27 @@ const db = knex ({
     database : 'subscriptionmanager'
   }
 });
-
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-db.select('*').from('users').then(data => {
-  //console.log(data);
-});
-
 app.get('/', (req, res) => {
   res.json('please work');
 })
 
-// register will put users password and email in logins and user database
+// register will put users password and email in logins and user database. DONE
 // new data will go to front-end state which will use ID to match with foreign keys
 app.post('/register', register.handleRegister(db, bcrypt))
 
-// signin is responsible for responding users SUBSCRIPTIONS
+// signin is responsible for responding users SUBSCRIPTIONS. DONE
 app.post('/signin', signin.handleSignin(db, bcrypt))
 
 
 
-app.post('/addsubscription', dao.handleAddSubscription(db))
+app.post('/addsubscription', subsController.handleAddSubscription(db))
 
-app.delete('/deletesubscription', dao.handleDeleteSubscription(db))
+app.delete('/deletesubscription', subsController.handleDeleteSubscription(db))
 
 
 app.listen(3000, (req, res) => {
@@ -56,6 +51,8 @@ at home page:
 
   signin(POST)
 
+  Might even have the ability to delete account. IS THIS A GOOD IDEA?
+
 at user's page:
   addSubscription(POST)
     db.select('subscriptions')
@@ -66,6 +63,9 @@ at user's page:
   deleteSubscription(DELETE)
     db.delete('subscriptions').where('subscription_name').DELETE('subscription_name')
 
+    db.select('*').from('users').then(data => {
+      //console.log(data);
+    });
 
   CREATE TABLE users (
    id BIGSERIAL NOT NULL PRIMARY KEY,

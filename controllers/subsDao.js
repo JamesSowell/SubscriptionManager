@@ -1,4 +1,3 @@
-// UNUSED 
 const insertSub = (subName, subPrice, subDate, userId, db) =>{
   db('subs').insert({
     sub_name: subName,
@@ -8,14 +7,19 @@ const insertSub = (subName, subPrice, subDate, userId, db) =>{
   })
 }
 
-const deleteSub = (subName, userId, db) =>{
+const deleteSub = (subName, userId, db) => {
   db('subs').where({sub_name: subName})
     .andWhere({user_id: userId})
     .del()
 }
 
+const sup = () =>{
+  return 5;
+}
+
 
 module.exports = {
   insertSub: insertSub,
-  deleteSub: deleteSub
+  deleteSub: deleteSub,
+  sup: sup
 };

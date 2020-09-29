@@ -13,9 +13,7 @@ const deleteSub = (subName, userId, db) => { //make email instead of id
     .del();
 }
 
-const sup = () =>{
-  return 5;
-}
+const sup = 5;
 
 
 module.exports = {

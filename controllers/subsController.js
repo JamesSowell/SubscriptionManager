@@ -24,7 +24,12 @@ const handleDeleteSubscription = (db) => (req, res) => {
     }).catch(err => res.status(400).json('unable to delete sub'))
 }
 
+const handGetSubscriptions = (db) => (req, res) => {
+  
+}
+
 module.exports = {
   handleAddSubscription: handleAddSubscription,
-  handleDeleteSubscription: handleDeleteSubscription
+  handleDeleteSubscription: handleDeleteSubscription,
+  handGetSubscriptions: handGetSubscriptions
 };

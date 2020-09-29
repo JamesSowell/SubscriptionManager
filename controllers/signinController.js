@@ -3,16 +3,16 @@ const handleSignin = (db, bcrypt) => (req, res) =>{
   if(!email || !password){
     return res.status(400).json('incorrect form submissions');
   }
-  console.log(email, password);
+  console.log(email, password);//line seven passed to DAO
   db.select('email', 'hash').from('logins') // was not working because logins was empty, fix register foist
     .where('email', '=', email)
     .then(data => {
-      const isValid = bcrypt.compareSync(password, data[0].hash); //returns list of elements where email=front-end-email
+      const isValid = bcrypt.compareSync(password, data[0].hash); //sent to utility
       if(isValid){
-        return db.select('*').from('users') //always use return when doing something to database
+        return db.select('*').from('users') // sent to Dao
           .where('email', '=', email)
           .then(user => {
-            res.json(user[0])
+            res.json(user[0]) //return name and all subscriptions
           })
           .catch(err => res.status(400).json('unable to get user'))
       }else{

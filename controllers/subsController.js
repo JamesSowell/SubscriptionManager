@@ -1,4 +1,4 @@
-const subsDao = require('./subsDao');
+const subsDao = require('../dao/subsDao');
 
 // FOR SOME REASON:
 // subsDao is showing up as empty. the problem best described:
@@ -6,15 +6,12 @@ const subsDao = require('./subsDao');
 
 const handleAddSubscription = (db) => (req, res) => {
   const {subName, subPrice, subDate, userId } = req.body;
-  db('subs').insert({
-    sub_name: subName,
-    sub_price: subPrice,
-    start_date: subDate,
-    user_id: userId
-  })
+  subsDao.insertSub(subName, subPrice, subDate, userId, db)
     .then(data => {
       res.json("send user back to front end to put into sub comp")
-    }).catch(err => res.status(400).json('unable to add sub'))
+    }).catch(err => {
+      res.status(400).json('unable to add sub')}
+    )
 }
 
 const handleDeleteSubscription = (db) => (req, res) => {

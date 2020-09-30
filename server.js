@@ -5,6 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
 
 const subsController = require('./controllers/subsController');
+const usersController = require('./controllers/usersController');
 const signinController = require('./controllers/signinController');
 const registerController = require('./controllers/registerController');
 const deleteAccountController = require('./controllers/deleteAccountController');
@@ -25,11 +26,11 @@ app.use(cors());
 
 // register will put users password and email in logins and user database. DONE
 // new data will go to front-end state which will use ID to match with foreign keys
-app.post('/register', registerController.handleRegister(db, bcrypt));
+app.post('/register', usersController.handleRegister(db, bcrypt));
 // signin is responsible for responding users SUBSCRIPTIONS. DONE
-app.post('/signin', signinController.handleSignin(db, bcrypt));
+app.post('/signin', usersController.handleSignin(db, bcrypt));
 // delete will erase user's subscriptions first an then the users
-app.delete('/deleteaccount', deleteAccountController.handeDeleteAccount(db));
+app.delete('/deleteaccount', usersController.handeDeleteAccount(db));
 
 
 

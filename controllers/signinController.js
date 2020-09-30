@@ -1,3 +1,4 @@
+// NOT USED
 const usersDao = require('../daos/usersDao');
 
 const handleSignin = (db, bcrypt) => (req, res) =>{

@@ -13,11 +13,20 @@ const deleteSub = (subName, userId, db) => { //make email instead of id
     .del();
 }
 
-const sup = 5;
+const deleteSubsOfUserId = (userId, db) => {
+    return db.select('*').from('subs')
+      .where('user_id', '=', userId)
+      .del()
+}
 
+const getSubs = (userId, db) => {
+  return db.select('sub_name', 'sub_price', 'start_date')
+           .from('subs').where('user_id', '=', userId);
+}
 
 module.exports = {
   insertSub: insertSub,
   deleteSub: deleteSub,
-  sup: sup
+  deleteSubsOfUserId: deleteSubsOfUserId,
+  getSubs: getSubs
 };

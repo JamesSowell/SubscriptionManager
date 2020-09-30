@@ -1,31 +1,45 @@
-const subsDao = require('../dao/subsDao');
-
-// FOR SOME REASON:
-// subsDao is showing up as empty. the problem best described:
-// nested file requires are weird. Udemy course did not teach this
+const subsDao = require('../daos/subsDao');
+const usersDao = require('../daos/usersDao');
 
 const handleAddSubscription = (db) => (req, res) => {
-  const {subName, subPrice, subDate, userId } = req.body;
-  subsDao.insertSub(subName, subPrice, subDate, userId, db)
+  const {subName, subPrice, subDate, userEmail } = req.body;
+  usersDao.getUserIdByEmail(userEmail, db)
     .then(data => {
-      res.json("send user back to front end to put into sub comp")
+      const userId = data[0].id;
+      subsDao.insertSub(subName, subPrice, subDate, userId, db)
+      .then(success => res.json('new sub added'))
+      .catch(fail => res.json('unable to add sub'))
     }).catch(err => {
-      res.status(400).json('unable to add sub')}
+      res.status(400).json('unable to get user by email')}
     )
 }
 
 const handleDeleteSubscription = (db) => (req, res) => {
-  const {subName, userId } = req.body;
-  db('subs').where({sub_name: subName})
-    .andWhere({user_id: userId})
-    .del()
+  const {subName, userEmail } = req.body;
+  usersDao.getUserIdByEmail(userEmail, db)
     .then(data => {
-      res.json('db updated, now erase front end sub component')
-    }).catch(err => res.status(400).json('unable to delete sub'))
+      const userId = data[0].id;
+      subsDao.deleteSub(subName, userId, db)
+      .then(data => {
+        res.json('db updated, now erase front end sub component')
+      }).catch(err => res.status(400).json('unable to delete sub'))
+    }).catch(err => {
+      res.status(400).json('unable to get user by email')}
+    )
 }
 
 const handGetSubscriptions = (db) => (req, res) => {
-  
+  const { email } = req.body;
+  usersDao.getUserIdByEmail(email, db)
+    .then(data => {
+      const userId = data[0].id;
+      console.log(userId);
+      subsDao.getSubs(userId, db)
+      .then(subs => res.json(subs))
+      .catch(err => res.json('could NOT retrieve subs'))
+    }).catch(err => {
+      res.status(400).json('unable to get user by email')}
+    )
 }
 
 module.exports = {

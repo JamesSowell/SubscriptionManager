@@ -1,15 +1,12 @@
-// WORKS
+const usersDao = require('../daos/usersDao');
+
 const handleRegister = (db, bcrypt) => (req, res) => {
   const { email, name, password } = req.body;
-  if(!email || !name || !password){
+  if(!email || !name || !password){      // put this is password utility
     return res.status(400).json('incorrect form submissions');
   }
   const hash = bcrypt.hashSync(password);
-    db('users').insert({  // give this to userDao
-      name: name,
-      email: email,
-      hash: hash
-    })
+    usersDao.insertUser(name, email, hash, db)
     .then(data => res.json(email))
     .catch(err => res.json("could not insert into users"));
 }

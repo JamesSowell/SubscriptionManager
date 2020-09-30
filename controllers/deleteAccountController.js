@@ -1,15 +1,15 @@
+const usersDao = require('../daos/usersDao');
+const subsDao = require('../daos/subsDao');
+
 const handeDeleteAccount = (db) => (req, res) => {
-  const { email } = req.body
-  db.select('id').from('users').where('email', '=', email)
+  const { email } = req.body;
+  usersDao.getUserIdByEmail(email, db) // lines 6-12 goes through model, is for constraints
     .then(data =>{
-      db.select('*').from('subs')
-        .where('user_id', '=', data[0].id)
-        .del()
+      const userId = data[0].id;
+      subsDao.deleteSubsOfUserId(userId, db)
           .then(eraseUser => {
-            console.log(data[0].id);
-            db.select('*').from('users')
-              .where('id', '=', data[0].id)
-              .del()
+            console.log(userId);
+            usersDao.deleteUser(userId, db)
               .then(success => res.json("successfully erased User"))
               .catch(err => res.json("erased subs but not user"))
           })

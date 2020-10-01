@@ -7,10 +7,6 @@ const bcrypt = require('bcrypt-nodejs');
 const subsController = require('./controllers/subsController');
 const usersController = require('./controllers/usersController');
 
-const signinController = require('./controllers/signinController');
-const registerController = require('./controllers/registerController');
-const deleteAccountController = require('./controllers/deleteAccountController');
-
 const db = knex ({
   client: 'pg',
   connection: {
@@ -25,20 +21,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// register will put users password and email in logins and user database. DONE
-// new data will go to front-end state which will use ID to match with foreign keys
+// user routes
 app.post('/register', usersController.handleRegister(db, bcrypt));
-// signin is responsible for responding users SUBSCRIPTIONS. DONE
 app.post('/signin', usersController.handleSignin(db, bcrypt));
-// delete will erase user's subscriptions first an then the users
 app.delete('/deleteaccount', usersController.handeDeleteAccount(db));
 
 
-
+// subscription routes
 app.post('/addsubscription', subsController.handleAddSubscription(db));
-
 app.delete('/deletesubscription', subsController.handleDeleteSubscription(db));
-
 app.get('/getsubscriptions', subsController.handGetSubscriptions(db))
 
 //app.patch('/updatesubscription', will return new value to front end comp)

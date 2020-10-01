@@ -39,7 +39,6 @@ const register = (name, email, password, db, bcrypt) => {
 const signin = (password, email, db, bcrypt) => {
     const isValid = userUtil.isValidInput(password, email);
     if(!isValid){
-      //throw new Error("One or more input left empty");
       return Promise.reject(new Error("One or more input left empty"));
     }
     return usersDao.getUserByEmail(email, db)

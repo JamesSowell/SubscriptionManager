@@ -1,6 +1,7 @@
 const subsDao = require('../daos/subsDao');
 const usersDao = require('../daos/usersDao');
 const subUtil = require('../utilities/subUtil');
+const subsMode = require('../models/subsModel');
 
 const handleAddSubscription = (db) => (req, res) => {
   const {subName, subPrice, subDate, userEmail } = req.body;

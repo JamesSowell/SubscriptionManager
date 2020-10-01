@@ -9,15 +9,11 @@ const isValidUser = (password, hash, bcrypt) => {
 }
 
 const isValidInput = (email, password) => {
-  if(!email || !password){
-    return res.status(400).json('incorrect form submissions');
-  }
+  return email && password;
 }
 
 const isValidRegisterInput = (email, password, name) =>{
-  if(!email || !name || !password){
-    return res.status(400).json('incorrect form submissions');
-  }
+  return email && password && name;
 }
 
 const userResponse = (data) => {

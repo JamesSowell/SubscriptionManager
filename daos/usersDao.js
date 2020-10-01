@@ -10,7 +10,7 @@ const insertUser = (name, email, hash, db) => {
 }
 
 const getUserByEmail = (email, db) => {
-   return db.select('email', 'hash').from('users')
+   return db.select('email', 'hash', 'name').from('users')
             .where('email', '=', email);
 }
 
@@ -39,3 +39,5 @@ module.exports = {
 // Method for DELETING users with given    ID
 
 // Method for GETTING user's hash with email
+
+// MAYBE Method for Updating, but will get front-end up before implementation

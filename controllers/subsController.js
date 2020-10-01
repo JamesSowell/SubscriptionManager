@@ -1,5 +1,6 @@
 const subsDao = require('../daos/subsDao');
 const usersDao = require('../daos/usersDao');
+const subUtil = require('../utilities/subUtil');
 
 const handleAddSubscription = (db) => (req, res) => {
   const {subName, subPrice, subDate, userEmail } = req.body;
@@ -7,7 +8,10 @@ const handleAddSubscription = (db) => (req, res) => {
     .then(data => {
       const userId = data[0].id;
       subsDao.insertSub(subName, subPrice, subDate, userId, db)
-      .then(success => res.json('new sub added'))
+      .then(success => {
+        const subObj = subUtil.createSubObj(subName, subPrice, subDate);
+        res.json(subObj);
+      })
       .catch(fail => res.json('unable to add sub'))
     }).catch(err => {
       res.status(400).json('unable to get user by email')}

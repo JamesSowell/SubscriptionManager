@@ -1,15 +1,14 @@
-const insertSub = (subName, subPrice, subDate, userId, db) =>{
-  return db('subs').insert({
-    sub_name: subName,
-    sub_price: subPrice,
-    start_date: subDate,
-    user_id: userId
-  });
+const insertSub = (subName, subPrice, userId, db) => {
+    return db('subs').insert({
+      sub_name: subName,
+      sub_price: subPrice,
+      user_id: userId
+    });
 }
 
-const deleteSub = (subName, userId, db) => { //make email instead of id
-  return db('subs').where({sub_name: subName}) // use join to erase all subs at once
-    .andWhere({user_id: userId})            // fron END DOESN't need ID from db
+const deleteSub = (subName, userId, db) => {
+  return db('subs').where({sub_name: subName}) 
+    .andWhere({user_id: userId})
     .del();
 }
 
@@ -20,7 +19,7 @@ const deleteSubsOfUserId = (userId, db) => {
 }
 
 const getSubs = (userId, db) => {
-  return db.select('sub_name', 'sub_price', 'start_date')
+  return db.select('sub_name', 'sub_price')
            .from('subs').where('user_id', '=', userId);
 }
 

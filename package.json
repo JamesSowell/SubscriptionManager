@@ -4,7 +4,8 @@
   "description": "Subscription Manager App made with Nodejs and postgres",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/JamesSowell/SubscriptionManager#readme",
   "devDependencies": {
+    "jest": "^26.4.2",
     "nodemon": "^2.0.4"
   },
   "dependencies": {

@@ -30,12 +30,12 @@ app.delete('/deleteaccount', usersController.handeDeleteAccount(db));
 // subscription routes
 app.post('/addsubscription', subsController.handleAddSubscription(db));
 app.delete('/deletesubscription', subsController.handleDeleteSubscription(db));
-app.get('/getsubscriptions', subsController.handGetSubscriptions(db))
+app.post('/getsubscriptions', subsController.handGetSubscriptions(db))
 
-//app.patch('/updatesubscription', will return new value to front end comp)
-
-
-
+//Test for fron-end
+app.get('/', (req, res) => {
+  res.json('front-end & back-end are connected');
+})
 
 app.listen(3000, (req, res) => {
   console.log('app is running on port 3000');

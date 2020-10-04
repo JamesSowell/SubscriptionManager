@@ -23,8 +23,7 @@ const handleSignin = (db, bcrypt) => (req, res) =>{
   const {email, password } = req.body;
   usersModel.signin(password, email, db, bcrypt)
     .then(user => res.json(user))
-    .catch(err => res.status(400).json(err.message))
-
+    .catch(err => res.status(400).json(err.message));
 }
 
 module.exports = {

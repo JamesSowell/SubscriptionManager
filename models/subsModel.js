@@ -2,13 +2,13 @@ const subsDao = require('../daos/subsDao');
 const usersDao = require('../daos/usersDao');
 const subUtil = require('../utilities/subUtil');
 
-const addSubscription = (subName, subPrice, subDate, userEmail, db) => {
+const addSubscription = (subName, subPrice, userEmail, db) => {
   return usersDao.getUserIdByEmail(userEmail, db)
           .then(data => {
             const userId = data[0].id;
-            return subsDao.insertSub(subName, subPrice, subDate, userId, db)
+            return subsDao.insertSub(subName, subPrice, userId, db)
                     .then(success => {
-                      return subUtil.createSubObj(subName, subPrice, subDate);
+                      return subUtil.sanitizeSubObj(subName, subPrice);
                     })
                     .catch(fail => {
                       return Promise.reject(new Error('unable to add sub'));

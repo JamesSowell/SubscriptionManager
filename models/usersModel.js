@@ -29,11 +29,10 @@ const register = (name, email, password, db, bcrypt) => {
   const hash = bcrypt.hashSync(password);
   return usersDao.insertUser(name, email, hash, db)
           .then(data => {
-            const user = userUtil.userCreate(email, name);
+            const user = userUtil.createUser(email, name);
             return user;
           })
           .catch(err => {throw new Error("user is already in system");})
-
 }
 
 const signin = (password, email, db, bcrypt) => {
@@ -47,7 +46,7 @@ const signin = (password, email, db, bcrypt) => {
                 throw new Error("user with this password and email doens't exist");
               }
               if(userUtil.isValidUser(password, data[0].hash, bcrypt)){
-                return userUtil.userResponse(data[0]);
+                return userUtil.sanitizeUser(data[0]);
               }else{
                 return Promise.reject(new Error("password did not match data base userPassword"));
               }

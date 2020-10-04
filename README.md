@@ -1,2 +1,2 @@
 # Subscription-Manager
-Subscription Manager App made with Nodejs and postgres
+Subscription Manager Api made with Nodejs and postgres

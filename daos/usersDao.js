@@ -1,12 +1,10 @@
 
 const insertUser = (name, email, hash, db) => {
-
-    return db('users').insert({  // give this to userDao
+    return db('users').insert({
         name: name,
         email: email,
         hash: hash
     });
-
 }
 
 const getUserByEmail = (email, db) => {
@@ -30,14 +28,3 @@ module.exports = {
   getUserIdByEmail: getUserIdByEmail,
   deleteUser: deleteUser
 };
-
-
-// Method for retrieving ID with user's email
-
-// Method for INSERTING user with inputted email, name, hash
-
-// Method for DELETING users with given    ID
-
-// Method for GETTING user's hash with email
-
-// MAYBE Method for Updating, but will get front-end up before implementation

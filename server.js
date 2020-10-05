@@ -37,6 +37,6 @@ app.get('/', (req, res) => {
   res.json('front-end & back-end are connected');
 })
 
-app.listen(3000, (req, res) => {
-  console.log('app is running on port 3000');
+app.listen(process.env.PORT || 3000, (req, res) => {
+  console.log(`app is running on port${process.env.PORT}`);
 })

@@ -4,7 +4,7 @@
   "description": "Subscription Manager App made with Nodejs and postgres",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "server.js",
     "test": "jest"
   },
   "repository": {

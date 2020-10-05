@@ -10,7 +10,7 @@ const usersController = require('./controllers/usersController');
 const db = knex ({
   client: 'pg',
   connection: {
-    connectionString :  pro cess.env.DATABASE_URL,
+    connectionString :  process.env.DATABASE_URL,
     ssl: true,
   }
 });
